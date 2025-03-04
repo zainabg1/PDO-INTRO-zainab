@@ -5,7 +5,7 @@ $dbname = "winkel";
 $pass = "";
 
 try {
-     $pdo = new PDO("mysql:host=$host;dbname=$db;", $user, $pass);
+     $pdo = new PDO("mysql:host=$host;dbname=$dbname;", $user, $pass);
      echo "Connectie gemaakt!";
 } 
 catch (PDOException $e) {
