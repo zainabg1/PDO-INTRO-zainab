@@ -1,25 +1,27 @@
-
 <?php
 require "db.php";
- 
+
 if (isset($_POST['knop'])) {
     $product_naam = $_POST['product_naam'];
     $prijs_per_stuk = $_POST['prijs_per_stuk'];
     $omschrijving = $_POST['omschrijving'];
- 
-    $sql = "INSERT into Producten (product_naam, prijs_per_stuk, omschrijving) values (:product_naam, :prijs_per_stuk, :omschrijving)";
+    $categorie = $_POST['categorie']; // Nieuwe categorie veld
+
+    $sql = "INSERT INTO Producten (product_naam, prijs_per_stuk, omschrijving, Categorie) 
+            VALUES (:product_naam, :prijs_per_stuk, :omschrijving, :categorie)";
     $stmt = $pdo->prepare($sql);
    
     $stmt->execute([
         "product_naam" => $product_naam,
         "prijs_per_stuk" => $prijs_per_stuk,
-        "omschrijving" => $omschrijving
+        "omschrijving" => $omschrijving,
+        "categorie" => $categorie
     ]);
- 
-    echo "product gevoegd!";
+
+    echo "Product toegevoegd!";
 }
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -29,10 +31,22 @@ if (isset($_POST['knop'])) {
 </head>
 <body>
     <form method="POST">
-        product naam: <input type="text" name="product_naam" required><br>
-        prijs per stuk: <input type="text" name="prijs_per_stuk" required><br>
-        omschrijving: <input type="text" name="omschrijving" required><br>
-        <button type="submit" name="knop">Submit</button>
+        Product naam: <input type="text" name="product_naam" required><br>
+        Prijs per stuk: <input type="text" name="prijs_per_stuk" required><br>
+        Omschrijving: <input type="text" name="omschrijving" required><br>
+        
+        Categorie:
+        <select name="categorie" required>
+            <option value="drinken">Drinken</option>
+            <option value="eten">Eten</option>
+            <option value="kleding">Kleding</option>
+            <option value="electronica">Elektronica</option>
+        </select><br>
+
+        <button type="submit" name="knop">Toevoegen</button>
     </form>
 </body>
 </html>
+
+ 
+ 
